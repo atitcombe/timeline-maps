@@ -24,12 +24,6 @@
      }
   }
 
-  #title {
-    width: 40vw;
-    max-width: 500px;
-    top: 0;
-  }
-
   .leaflet-control-attribution {
     visibility: visible;
   }

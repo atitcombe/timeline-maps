@@ -286,12 +286,30 @@ $(window).on('load', function() {
     }
     pixelsAbove.push(Number.MAX_VALUE);
 
+    var bounds = [];
+    for (i in markers) {
+      if (markers[i]) {
+        markers[i].addTo(map);
+        markers[i]['_pixelsAbove'] = pixelsAbove[i];
+        markers[i].on('click', function() {
+          var pixels = parseInt($(this)[0]['_pixelsAbove']) + 5;
+          $('div#contents').animate({
+            scrollTop: pixels + 'px'});
+        });
+        bounds.push(markers[i].getLatLng());
+      }
+    }
+    map.fitBounds(bounds);
+
     $('div#contents').scroll(function() {
       var currentPosition = $(this).scrollTop();
 
-      // Make title disappear on scroll
-      if (currentPosition < 200) {
-        $('#title').css('opacity', 1 - Math.min(1, currentPosition / 100));
+      // Reset map to bounds if at top
+      if (currentPosition < 10) {
+        $('.chapter-container').removeClass("in-focus").addClass("out-focus");
+        currentlyInFocus = -1;
+        map.fitBounds(bounds);
+        return;
       }
 
       for (var i = 0; i < pixelsAbove.length - 1; i++) {
@@ -429,21 +447,6 @@ $(window).on('load', function() {
         'padding-top': (endPixels / 2) + 'px',
       });
     }
-
-    var bounds = [];
-    for (i in markers) {
-      if (markers[i]) {
-        markers[i].addTo(map);
-        markers[i]['_pixelsAbove'] = pixelsAbove[i];
-        markers[i].on('click', function() {
-          var pixels = parseInt($(this)[0]['_pixelsAbove']) + 5;
-          $('div#contents').animate({
-            scrollTop: pixels + 'px'});
-        });
-        bounds.push(markers[i].getLatLng());
-      }
-    }
-    map.fitBounds(bounds);
 
     $('#map, #narration, #title').css('visibility', 'visible');
     $('div.loader').css('visibility', 'hidden');
