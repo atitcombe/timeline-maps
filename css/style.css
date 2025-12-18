@@ -1,7 +1,9 @@
 body {
   padding: 0px;
   margin: 0px;
-  font-family: "Helvetica", sans-serif;
+  font-family: 'Lato', sans-serif;
+  color: #4a4a4a;
+  background-color: #f9f7f2;
   overflow: hidden;
 }
 
@@ -9,7 +11,7 @@ body {
   height: 200px;
   width: 100vw;
   position: absolute;
-  border-bottom: 3px solid orange;
+  border-bottom: 3px solid #d4a5a5;
   top: 0;
   left: 0;
 }
@@ -20,6 +22,7 @@ body {
   width: 100vw;
   height: calc(100vh - 203px);
   z-index: 80;
+  background-color: #f9f7f2;
 }
 
 #contents {
@@ -29,6 +32,21 @@ body {
   height: 100%; /* Adjust to fit max Description length, one setting for all; alternative is 100% */
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+#contents::-webkit-scrollbar {
+  width: 8px;
+}
+#contents::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+#contents::-webkit-scrollbar-thumb {
+  background: #d4a5a5; 
+  border-radius: 4px;
+}
+#contents::-webkit-scrollbar-thumb:hover {
+  background: #c08080; 
 }
 
 #top {
@@ -47,31 +65,41 @@ body {
   position: absolute;
   left: 0;
   top: 203px;
-  background-color: white;
+  background-color: #fff;
   width: 100vw;
   z-index: 100;
   margin: 0;
-  padding: 0;
+  padding: 15px 0;
   visibility: hidden;
-  font-weight: bold;
+  font-family: 'Playfair Display', serif;
   text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .chapter-container {
   /* margin + padding = chapterContainerMargin in script.js */
   /* Important for scrolling! */
-  margin: 50px 0 0 0;
-  padding: 20px 0 0 0;
+  margin: 40px 20px;
+  padding: 30px;
   text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
 }
 
-.chapter-container img {
+.chapter-container:hover {
+  transform: translateY(-2px);
+}
+
+.chapter-container img, .chapter-container video {
   height: auto;
   width: auto;
   max-height: 100%;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 4px;
 
   /* Three lines that center vertically */
   position: relative;
@@ -79,9 +107,9 @@ body {
   transform: translateY(-50%);
 }
 
-.img-container {
+.img-container, .video-container {
   margin: 0;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   height: 200px;
   max-height: 200px;
   width: 100%;
@@ -98,24 +126,32 @@ body {
 .chapter-header {
   display: block;
   text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
   font-size: 1.2em;
   padding: 0 5px;
 }
 
 .source {
-  font-size: 9pt;
+  font-size: 0.9em;
   font-style: italic;
-  color: gray;
+  color: #888;
+  display: block;
+  margin-bottom: 10px;
 }
 a.source:visited {
-  color: grey;
+  color: #888;
 }
 
 .description {
-  margin: 20px;
+  margin: 10px 0;
   text-align: left;
-  font-size: 11pt;
-  padding: 20px;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #555;
 }
 
 .in-focus {
@@ -123,7 +159,9 @@ a.source:visited {
 }
 
 .out-focus {
-  opacity: 0.3;
+  opacity: 0.5;
+  filter: grayscale(80%);
+  transition: all 0.5s ease;
 }
 
 .leaflet-control-attribution {
@@ -131,7 +169,8 @@ a.source:visited {
 }
 
 .leaflet-marker-icon {
-  opacity: 0.75;
+  opacity: 0.8;
+  transition: opacity 0.3s;
 }
 
 /*
@@ -140,12 +179,14 @@ a.source:visited {
 */
 .marker-active {
   background-position: -72px 0 !important;
+  opacity: 1 !important;
+  z-index: 1000 !important;
 }
 
 /* Storymap logo image above the title */
 #logo {
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
   padding: 10px;
   max-width: 100%;
@@ -158,19 +199,26 @@ a.source:visited {
 }
 
 #header {
-  padding: 5px 0;
+  padding: 10px 0;
   text-align: center;
-  color: #333;
+  color: #2c3e50;
 }
 
 /* Storymap title & subtitle */
 h1 {
   margin: 0;
-  font-size: 1.5em;
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+  color: #2c3e50;
+  letter-spacing: 1px;
 }
 
 h2 {
-  margin: 0;
+  margin: 5px 0 0 0;
+  font-family: 'Lato', sans-serif;
   font-size: 1.1em;
-  font-weight: normal;
+  font-weight: 300;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }

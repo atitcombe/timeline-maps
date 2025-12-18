@@ -228,6 +228,8 @@ $(window).on('load', function() {
         'mp3': 'audio',
         'ogg': 'audio',
         'wav': 'audio',
+        'mp4': 'video',
+        'heic': 'img',
       }
 
       var mediaExt = c['Media Link'] ? c['Media Link'].split('.').pop().toLowerCase() : '';
@@ -236,7 +238,7 @@ $(window).on('load', function() {
       if (mediaType) {
         media = $('<' + mediaType + '>', {
           src: c['Media Link'],
-          controls: mediaType === 'audio' ? 'controls' : '',
+          controls: (mediaType === 'audio' || mediaType === 'video') ? 'controls' : '',
           alt: c['Chapter']
         });
 
@@ -271,7 +273,7 @@ $(window).on('load', function() {
     /* Change image container heights */
     imgContainerHeight = parseInt(getSetting('_imgContainerHeight'));
     if (imgContainerHeight > 0) {
-      $('.img-container').css({
+      $('.img-container, .video-container').css({
         'height': imgContainerHeight + 'px',
         'max-height': imgContainerHeight + 'px',
       });
